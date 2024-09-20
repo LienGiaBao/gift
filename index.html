@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Gift from AAC</title>
+    <style>
+        body {
+            background-image: url('mid-autumn-background.jpg');
+            background-size: cover;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: filter 1s ease;
+        }
+        .blurred {
+            filter: blur(100px);
+        }
+        h1 {
+            color: white;
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+        .gift-box {
+            width: 250px;
+            height: 250px;
+            background-image: url('giftbox.webp');
+            background-size: cover;
+            position: relative;
+            cursor: pointer;
+            transition: all 1s ease;
+        }
+        .gift-box.open {
+            transform: rotateX(90deg);
+        }
+        .open-btn {
+            background-color: #ff6600;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+        .open-btn:hover {
+            background-color: #cc5200;
+        }
+        .card {
+            display: none;
+            padding: 20px;
+            background-color: #fff;
+            border: 3px solid #ff6600;
+            width: 80%;
+            max-width: 600px;
+            height: auto;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            font-size: 22px;
+            border-radius: 20px;
+            text-align: left;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+        .card.show {
+            display: block;
+            opacity: 1;
+        }
+        .card-content {
+            padding: 20px;
+            line-height: 1.8;
+            font-size: 20px;
+        }
+        .sender {
+            margin-top: 20px;
+            text-align: right;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Chúc mừng Trung Thu</h1>
+    <div class="gift-box" id="giftBox"></div>
+    <button class="open-btn" id="openBtn">Mở Quà</button>
+
+    <div class="card" id="card">
+        <div class="card-content">
+            <h2>Chúc mừng bạn đã thành công giải mã bí ẩn!!</h2>
+            <p>Phần quà của bạn bao gồm:</p>
+            <ul>
+                <li>1 câu trả lời thật lòng của CLB cho 1 câu hỏi bất kì của bạn.</li>
+                <li>1 yêu cầu về bài đăng tiếp theo về CyberSecurity của CLB.</li>
+            </ul>
+            <div class="sender">From AAC with ❤️</div>
+        </div>
+    </div>
+
+    <!-- Nhạc nền -->
+    <audio id="bgMusic" src="music.mp3" autoplay></audio>
+    <!-- Âm thanh khi mở quà -->
+    <audio id="openSound" src="unbox.mp3"></audio>
+
+    <script>
+        const giftBox = document.getElementById('giftBox');
+        const card = document.getElementById('card');
+        const bgMusic = document.getElementById('bgMusic');
+        const openSound = document.getElementById('openSound');
+        const elementsToBlur = document.querySelectorAll('h1, .gift-box, .open-btn');
+
+        window.addEventListener('load', function() {
+            bgMusic.play();
+        });
+        document.getElementById('openBtn').addEventListener('click', function() {
+            openSound.play(); 
+            giftBox.classList.add('open');
+            setTimeout(() => {
+                giftBox.style.display = 'none';
+                card.classList.add('show');
+                elementsToBlur.forEach(el => {
+                    el.classList.add('blurred');
+                });
+            }, 1000);
+        });
+    </script>
+
+</body>
+</html>
